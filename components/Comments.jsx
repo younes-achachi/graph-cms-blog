@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { comment } from 'postcss';
 import { getComments } from '../services';
-import { parse } from 'graphql';
 const Comments = ({ slug }) => {
 	console.log(slug, 'the slug');
 
 	const [ comments, setComments ] = useState([]);
-	useEffect(() => {
-		getComments(slug).then((res) => setComments(res.comments));
-	}, []);
-	console.log(comments.length, 'comment length');
+	useEffect(
+		() => {
+			getComments(slug).then((res) => setComments(res.comments));
+			console.log(comments.length, 'comment length');
+		},
+		[ slug ]
+	);
 	return (
 		<React.Fragment>
 			{comments.length > 0 && (
